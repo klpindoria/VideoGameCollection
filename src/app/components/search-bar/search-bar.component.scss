@@ -1,0 +1,25 @@
+* {
+    // outline: 1px solid white;
+}
+
+nav {
+    box-shadow: 0px 7px 23px 1px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 7px 23px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 7px 23px 1px rgba(0, 0, 0, 0.75);
+}
+
+.menu-search mat-form-field.mat-form-field {
+    font-size: 12px;
+    width: 450px;
+}
+
+:host ::ng-deep .menu-search .mat-form-field-wrapper {
+    margin: 0 !important;
+    padding: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .menu-search mat-form-field.mat-form-field {
+        width: unset;
+    }
+}
