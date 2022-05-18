@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+
+        <!-- <pre>{{cards | json}}</pre> -->
+
+        <!-- Material Card Div Starts -->
+        <ng-container *ngIf="cards.length > 0">
+            <div class="col-lg-3 col-sm-6 mb-5" *ngFor="let card of cards">
+                <mat-card class="game-card">
+                    <mat-card-header>
+                        <mat-card-title>{{card.title}}</mat-card-title>
+                        <mat-card-subtitle>{{card.subHeading}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image class="card-img-top" [src]="card.photo" alt="Game Cover Image">
+                    <mat-card-content>
+                        <p>
+                            {{ (card.description.length > 140)? (card.description | slice:0:140)+'...':(card.description) }}
+                        </p>
+                        <button class="me-2" mat-raised-button color="primary">Read More</button>
+                        <button mat-button>Share</button>
+                    </mat-card-content>
+                    <!-- Platform Icons Start -->
+                    <mat-card-footer align="end" class="pt-3 pb-3 pe-3">
+                        <ng-container *ngFor="let index of card.platforms">
+                            <img matTooltip="{{platforms[index-1].name}}" matTooltipPosition="above" class="platform-icon ms-3" [src]="platforms[index-1].icon" alt="">
+                        </ng-container>
+                    </mat-card-footer>
+                    <!-- Platform Icons End -->
+
+                </mat-card>
+            </div>
+        </ng-container>
+        <!-- Material Card Div Ends -->
+    </div>
+</div>

@@ -1,0 +1,26 @@
+.mat-card {
+    background-color: #020c1c;
+    box-shadow: 7px 8px 37px 0px rgba(0, 0, 0, 0.74);
+    -webkit-box-shadow: 7px 8px 37px 0px rgba(0, 0, 0, 0.74);
+    -moz-box-shadow: 7px 8px 37px 0px rgba(0, 0, 0, 0.74);
+}
+
+:host ::ng-deep .mat-card-header-text {
+    margin: 0 !important;
+}
+
+.mat-card-footer {
+    background-color: #e1e1e1;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.card-img-top {
+    height: 25vw;
+    object-fit: cover;
+}
+
+.platform-icon {
+    width: 32px;
+    height: auto;
+}
