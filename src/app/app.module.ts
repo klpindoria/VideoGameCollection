@@ -9,7 +9,7 @@ import { CardComponent } from './components/card/card.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GaugeModule } from 'angular-gauge';
 
 import { MatTabsModule } from '@angular/material/tabs';
@@ -21,6 +21,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { HttpHeadersInterceptor } from './interceptors/https-headers.interceptor';
+import { HttpErrorsInterceptor } from './interceptors/https-errors.interceptor';
 
 
 
@@ -48,7 +51,18 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatCardModule,
     MatTooltipModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpHeadersInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorsInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

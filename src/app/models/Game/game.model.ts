@@ -1,4 +1,4 @@
-import { Platform } from './platform.model';
+import { ParentPlatform } from './platform.model';
 import { Genre } from './genre.model';
 import { Publisher } from './publisher.model';
 import { Rating } from './rating.model';
@@ -8,11 +8,11 @@ import { Trailer } from './trailer.model';
 
 export interface Game {
     id: string;
-    title: string;
+    name: string;
     subHeading: string;
     description: string;
-    photo: string;
-    platforms: Array<Platform>;
+    background_image: string;
+    parent_platforms: Array<ParentPlatform>;
     released: string;
     metacritic_url: string;
     metacritic: number;

@@ -1,5 +1,7 @@
-export interface Platform {
-    id: string;
-    name: string;
-    icon: string;
+export interface ParentPlatform {
+    platform: {
+        id: string;
+        name: string;
+        slug: string;
+    }
 }
