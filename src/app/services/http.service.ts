@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
 import { APIResponse } from '../models/api-response.model';
 import { Game } from '../models/Game/game.model';
+import { GameDetail } from '../models/games-read.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class HttpService {
     return this.http.get<APIResponse<Game>>(`${env.BASE_URL}/games`, {
       params: params,
     });
+  }
+
+  getGameDetail(id: string): Observable<APIResponse<GameDetail>> {
+    return this.http.get<APIResponse<GameDetail>>(`${env.BASE_URL}/games/${id}`);
   }
 }

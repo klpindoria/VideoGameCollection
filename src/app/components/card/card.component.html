@@ -4,7 +4,7 @@
             <div class="filters">
                 <mat-form-field>
                     <mat-label>Sort</mat-label>
-                    <mat-select panelClass="sort-select" [(ngModel)]="sort">
+                    <mat-select panelClass="sort-select" [(ngModel)]="sort" (selectionChange)="searchGames(sort)">
                         <mat-option value="name">Name</mat-option>
                         <mat-option value="released">Released</mat-option>
                         <mat-option value="added">Added</mat-option>
@@ -26,24 +26,29 @@
         <!-- Material Card Div Starts -->
         <ng-container *ngIf="games && games.length > 0">
             <div class="col-lg-3 col-sm-6 mb-5" *ngFor="let game of games">
-                <mat-card class="game-card">
+                <mat-card class="game-card" role="button" (click)="openGameDetails(game.id)">
                     <mat-card-header>
                         <mat-card-title>{{game.name}}</mat-card-title>
                         <mat-card-subtitle>{{game.released}}</mat-card-subtitle>
                     </mat-card-header>
-                    <img mat-card-image class="card-img-top" [src]="game.background_image" alt="Game Cover Image">
+                    <img mat-card-image class="card-img-top" *ngIf="game.background_image" [src]="game.background_image" alt="Game Cover Image">
+                    <p *ngIf="!game.background_image">No Image</p>
                     <mat-card-content>
                         <p>
                             <!-- {{ (game.description.length > 140)? (game.description | slice:0:140)+'...':(game.description) }} -->
+                            <!-- {{ findGameDesc(game.slug)  | json }} -->
                         </p>
-                        <button class="me-2" mat-raised-button color="primary">Read More</button>
+                        <button class="me-2" mat-raised-button color="primary" role="button" (click)="openGameDetails(game.id)">Read More</button>
                         <button mat-button>Share</button>
                     </mat-card-content>
                     <!-- Platform Icons Start -->
                     <mat-card-footer align="end" class="pb-3 pe-3">
                         <ng-container *ngFor="let gamePlatform of game.parent_platforms">
                             <!-- <pre>{{ gamePlatform.platform.slug | json }}</pre> -->
-                            <img matTooltip="{{ gamePlatform.platform.name }}" matTooltipPosition="above" class="platform-icon mt-3 ms-3" src="assets/platform-icons/{{ gamePlatform.platform.slug }}.png" alt="{{ gamePlatform.platform.name }}">
+                            <img matTooltip="{{ gamePlatform.platform.name }}" matTooltipPosition="above"
+                                class="platform-icon mt-3 ms-3"
+                                src="assets/platform-icons/{{ gamePlatform.platform.slug }}.png"
+                                alt="{{ gamePlatform.platform.name }}">
                         </ng-container>
                     </mat-card-footer>
                     <!-- Platform Icons End -->

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { APIResponse } from 'src/app/models/api-response.model';
 import { Game } from 'src/app/models/Game/game.model';
+import { GameDetail } from 'src/app/models/games-read.model';
 import { HttpService } from 'src/app/services/http.service';
 
 @Component({
@@ -9,14 +11,18 @@ import { HttpService } from 'src/app/services/http.service';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, OnDestroy {
 
-  public sort: string | null = null;
+  public sort: string = '';
   public games: Array<Game> | undefined;
+  public gamesDesc: Array<GameDetail> | undefined;
+  private routeSub: Subscription | undefined;
+  private gameSub: Subscription | undefined;
   // public platforms: any[] = [];
 
   constructor(
     private httpService: HttpService,
+    private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -105,7 +111,8 @@ export class CardComponent implements OnInit {
     //     "platforms": ["1","2","3","4"]
     //   }
     // ];
-    this.activatedRoute.params.subscribe((params: Params) => {
+    
+    this.routeSub = this.activatedRoute.params.subscribe((params: Params) => {
       if (params['gameSearch']) {
         this.searchGames('metacritic', params['gameSearch']);
       } else {
@@ -115,7 +122,7 @@ export class CardComponent implements OnInit {
   }
 
   searchGames(sort: string, search?: string): void {
-    this.httpService
+    this.gameSub = this.httpService
       .getGameList(sort, search)
       .subscribe((gameList: APIResponse<Game>) => {
         this.games = gameList.results
@@ -123,4 +130,26 @@ export class CardComponent implements OnInit {
       })  
   }
 
+  openGameDetails(id: string): void {
+    this.router.navigate(['game-details', id]);
+    console.log(`Game Details function triggered with id passed: ${id}!`);
+  }
+
+  ngOnDestroy(): void {
+    if (this.gameSub) {
+      this.gameSub.unsubscribe();
+    }
+
+    if (this.routeSub) {
+      this.routeSub.unsubscribe();
+    }
+  }
+
+  // Function to fetch additional game details such as the description to show under the cover image
+  findGameDesc(slug: string) {
+    this.httpService.getGameDetail(slug).subscribe((gameDetailList: APIResponse<GameDetail>) => {
+      this.gamesDesc = gameDetailList.results
+      console.log(this.gamesDesc);
+    });
+  }
 }

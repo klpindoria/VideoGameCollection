@@ -1,0 +1,30 @@
+<div class="container-fluid p-0">
+    <div class="row game-banner">
+        <div class="col">
+            <img src="https://media.rawg.io/media/resize/1280/-/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg" alt="Game Banner">
+        </div>
+    </div>
+</div>
+<div class="container pt-3">
+    <div class="row game-content">
+        <div class="col">
+            <p>Game Title</p>
+            <p>Game Release Date</p>
+            <p>Game Genres</p>
+        </div>
+        <div class="game-gauge">
+            <mwl-gauge
+                class="two"
+                [max]="100"
+                [dialStartAngle]="180"
+                [dialEndAngle]="0"
+                [value]="gameRating"
+                [color]="getColour"
+                [animationDuration]="2"
+                >
+            </mwl-gauge>
+            <a class="guage-label" target="_blank" href="">Metacritic</a>
+        </div>
+    </div>
+    <!-- Add Material Tabs Here -->
+</div>
