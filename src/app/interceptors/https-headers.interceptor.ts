@@ -1,6 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError as observableThrowError } from "rxjs";
+import { environment as env } from "src/environments/environment";
 
 @Injectable()
 export class HttpHeadersInterceptor implements HttpInterceptor {
@@ -13,7 +14,7 @@ intercept(
     ): Observable<HttpEvent<any>> {
     req = req.clone({
         setParams: {
-            key: '961f607b4e1b4279915214160b6745f3',
+            key: env.API_KEY,
         }
     });
 
