@@ -41,6 +41,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-#Secure Environment Variables
+# Secure Environment Variables
 src/environments/environment.prod.ts
 src/environments/environment.ts
